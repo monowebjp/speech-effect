@@ -63,26 +63,25 @@
         recognition.continuous = true;
 
         recognition.onsoundstart = function() {
-            document.getElementById('status').innerHTML = "認識中";
+            // document.getElementById('status').innerHTML = "認識中";
         };
         recognition.onnomatch = function() {
-            document.getElementById('status').innerHTML = "もう一度試してください";
+            // document.getElementById('status').innerHTML = "もう一度試してください";
         };
         recognition.onerror = function() {
-            document.getElementById('status').innerHTML = "エラー";
+            // document.getElementById('status').innerHTML = "エラー";
             if(flag_speech === 0)
                 vr_function();
         };
         recognition.onsoundend = function() {
-            document.getElementById('status').innerHTML = "停止中";
+            // document.getElementById('status').innerHTML = "停止中";
             vr_function();
         };
 
         recognition.onresult = function(event) {
             var results = event.results;
             for (var i = event.resultIndex; i < results.length; i++) {
-                if (results[i].isFinal)
-                {
+                if (results[i].isFinal) {
                     const str = results[i][0].transcript
                     document.getElementById('result_text').innerHTML = str;
                     if (str.indexOf('走れ' ) !== -1) {
@@ -90,15 +89,14 @@
                     }
                     vr_function();
                 }
-                else
-                {
-                    document.getElementById('result_text').innerHTML = "[途中経過] " + results[i][0].transcript;
-                    flag_speech = 1;
-                }
+                // else {
+                //     document.getElementById('result_text').innerHTML = "[途中経過] " + results[i][0].transcript;
+                //     flag_speech = 1;
+                // }
             }
         }
         flag_speech = 0;
-        document.getElementById('status').innerHTML = "start";
+        // document.getElementById('status').innerHTML = "start";
         recognition.start();
     }
 
