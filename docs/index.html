@@ -4,17 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Web Speech API</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            padding-top: 56.25%
+        }
+    </style>
 </head>
 
 <body>
-<div style="width: 1920px; height: 1080px; background: #0f0;">
-    <textarea id="result_text" cols="100" rows="10"></textarea><br>
-    <textarea id="status" cols="100" rows="1"></textarea><br>
+<div class="container" style="width: 1920px; height: 1080px; background: #0f0;">
+    <p id="result_text"></p>
+    <p id="status"></p>
 </div>
 </body>
 
 <script>
-    var flag_speech = 0;
+    let flag_speech = 0;
 
     function vr_function() {
         window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
