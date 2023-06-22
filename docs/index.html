@@ -26,15 +26,15 @@
         }
 
         .run {
-            display: none;
             position: absolute;
-            bottom: 0;
+            bottom: 10px;
             left: 100%;
-            transition: left 2s ease-in-out;
+            transition: left 5s ease-in-out;
+            width: auto;
+            height: 10%;
         }
 
         .start {
-            display: block;
             left: -100%;
         }
     </style>
@@ -47,9 +47,7 @@
         <p id="status"></p>
     </div>
     <div class="visual">
-        <div id="run" class="run">
-            <img src="images/capybara-dash.gif" alt="">
-        </div>
+        <img id="run" class="run" src="images/capybara-dash.gif" alt="">
     </div>
 </div>
 </body>
