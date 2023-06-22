@@ -17,21 +17,34 @@
             background: #0f0;
         }
 
-        .visual {
+        .speech, .visual {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
         }
+
+        .run {
+            display: none;
+        }
+
+        .start {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
 <div class="container">
-    <div class="visual">
+    <div class="speech">
         <p id="result_text"></p>
         <p id="status"></p>
+    </div>
+    <div class="visual">
+        <div id="run" class="run">
+            <img src="images/capybara-dash.gif" alt="">
+        </div>
     </div>
 </div>
 </body>
@@ -54,7 +67,7 @@
         };
         recognition.onerror = function() {
             document.getElementById('status').innerHTML = "エラー";
-            if(flag_speech == 0)
+            if(flag_speech === 0)
                 vr_function();
         };
         recognition.onsoundend = function() {
@@ -67,7 +80,11 @@
             for (var i = event.resultIndex; i < results.length; i++) {
                 if (results[i].isFinal)
                 {
-                    document.getElementById('result_text').innerHTML = results[i][0].transcript;
+                    const str = results[i][0].transcript
+                    document.getElementById('result_text').innerHTML = str;
+                    if (str.indexOf('走れ' ) !== -1) {
+                        document.getElementById('run').classList.add('start')
+                    }
                     vr_function();
                 }
                 else
