@@ -2,8 +2,9 @@
   <main>
     <div class="l-container">
       <div class="l-visual">
-        <img :class="{ 'stop': true, 'run': isRun }" src="@/assets/capybara-dash.gif" alt="">
-        <img :class="{ 'hide': true, 'show': isShow }" src="@/assets/capybara-dash.gif" alt="">
+        <div v-for="(item, index) in Setting" :class="{ 'initial': true, 'move': flg[index] }" style="display: inline-block">
+          <img :src="item['file']" alt="">
+        </div>
       </div>
       <div class="p-speech">
         <p class="c-text">{{ recordedText }}</p>
@@ -14,11 +15,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import Setting from '@/assets/settings.json'
 
 let recognition: any = null
 let recordedText = ref('')
-let isRun = ref(false)
-let isShow = ref(false)
+// let isRun = ref(false)
+// let isShow = ref(false)
+let flg = new Array(Setting.length).fill(false)
 
 onMounted(async () => {
   const { webkitSpeechRecognition } = window as any
@@ -39,6 +42,14 @@ onMounted(async () => {
   recognition.start()
 })
 
+const appearAnimation = (index: number) => {
+  console.log(`Match found in file: ${Setting[index].file}`)
+  flg[index] = true
+
+  setTimeout(() => { flg[index] = false }, Setting[index]['maxTime'])
+}
+
+
 const recognize = (e: SpeechRecognitionEvent) => { // Removed 'async' here
   let finalTranscript = '';
   let interimTranscript = '';
@@ -49,17 +60,31 @@ const recognize = (e: SpeechRecognitionEvent) => { // Removed 'async' here
       finalTranscript += transcript;
     } else {
       interimTranscript += transcript;
-      if (transcript.indexOf('走れ') !== -1) {
-        isRun.value = true
+      for (let i = 0; i < Setting.length; i++) {
+        let keywords = Setting[i].keywords
 
-        setTimeout(function () {isRun.value = false}, 3000)
-      } else {
-        if (transcript.match(/おはようございます|こんにちは|こんばんは/g) !== -1) {
-          isShow.value = true
-
-          setTimeout(function () {isShow.value = false}, 2000)
+        if (keywords.startsWith('/') && keywords.endsWith('/g')) {
+          let regex = new RegExp(keywords.slice(1, -2), 'g')
+          if (regex.test(transcript)) {
+            appearAnimation(i)
+          }
+        } else {
+          if (transcript.includes(keywords)) {
+            appearAnimation(i)
+          }
         }
       }
+      // if (transcript.indexOf('走れ') !== -1) {
+      //   isRun.value = true
+      //
+      //   setTimeout(function () {isRun.value = false}, 3000)
+      // } else {
+      //   if (transcript.match(/おはようございます|こんにちは|こんばんは/g) !== -1) {
+      //     isShow.value = true
+      //
+      //     setTimeout(function () {isShow.value = false}, 2000)
+      //   }
+      // }
     }
   }
 

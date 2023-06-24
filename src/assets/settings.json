@@ -1,0 +1,63 @@
+[
+  {
+    "file": "capybara-dash-dot",
+    "keywords": "走れ",
+    "startWidth": 150,
+    "endWidth": 150,
+    "startBottom": 10,
+    "endBottom": 10,
+    "startLeft": 100,
+    "endLeft": -100,
+    "maxTime": 3000,
+    "transition": [
+      {
+        "prop": "left",
+        "time": 3000,
+        "easing": "ease-in-out"
+      }
+    ]
+  }, {
+    "file": "greeting",
+    "keywords": "/おはよう|こんにちは|こんばんは/g",
+    "startWidth": 150,
+    "endWidth": 150,
+    "startOpacity": 0,
+    "endOpacity": 1,
+    "maxTime": 200,
+    "transition": [
+      {
+        "prop": "opacity",
+        "time": 50,
+        "easing": "ease"
+      }, {
+        "prop": "bottom",
+        "time": 200,
+        "easing": "ease-in-out"
+      }, {
+        "prop": "left",
+        "time": 200,
+        "easing": "ease-in-out"
+      }
+    ]
+  }, {
+    "file": "capybara-dash",
+    "keywords": "/どういうこと|なんで|わからない/g",
+    "startWidth": 150,
+    "endWidth": 150,
+    "startBottom": 10,
+    "endBottom": 10,
+    "startLeft": 100,
+    "endLeft": -100,
+    "maxTime": 3000,
+    "transition": [
+      {
+        "prop": "left",
+        "time": 3000,
+        "easing": "ease-in-out"
+      }
+    ]
+  }, {
+    "file": "",
+    "keywords": "考え",
+  }
+]
